@@ -57,8 +57,8 @@ const MobilityList = styled.div`
 
 const Mobility = styled.div`
   background: #00b0f0;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   background-image: ${({ src }) => `url(${src})`};
   background-size: 80%;
   background-repeat: no-repeat;
