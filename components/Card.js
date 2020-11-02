@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Card = styled.article`
   background: white;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 3px;
 `;
 
@@ -16,7 +16,9 @@ const Content = styled.p`
 `;
 
 export default ({ title, currentAudience, audience, children }) =>
-  currentAudience === audience || currentAudience === "COUNSELOR" ? (
+  currentAudience === audience ||
+  currentAudience === "COUNSELOR" ||
+  !audience ? (
     <Card>
       <Title>{title}</Title>
       <Content>{children}</Content>
