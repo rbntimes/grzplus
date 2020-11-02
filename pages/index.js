@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { withRouter } from "next/router";
 
 import Card from "../components/Card";
+import Date from "../components/Date";
 
 const roles = {
   CLIENT: "Client",
@@ -30,6 +31,10 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Left = styled.div`
@@ -109,11 +114,13 @@ const App = ({ router }) => {
             Jouw oefeningen voor vandaag
           </Card>
           <Card
-            title="Stoornis"
+            title="DSM-V"
             currentAudience={router.query.audience}
             audience="PSYCHOLOOG"
           >
-            Schiezofrenie
+            <ul>
+              <li>Persisterende depressieve stoornis</li>
+            </ul>
           </Card>
           <Card
             title="Slikadvies"
@@ -129,7 +136,7 @@ const App = ({ router }) => {
             title="Voorlopige ontslagdatum"
             currentAudience={router.query.audience}
           >
-            <h1>29-11-2020</h1>
+            <Date year={2020} month={12} day={31}></Date>
           </Card>
           <Card
             title="Doel van de week"
@@ -146,6 +153,7 @@ const App = ({ router }) => {
           </Card>
           <Card
             title="Naam + foto's van behandelaren"
+            audience="CLIENT"
             currentAudience={router.query.audience}
           >
             <ul>

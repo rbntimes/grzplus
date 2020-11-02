@@ -19,7 +19,7 @@ export default ({ title, currentAudience, audience, children }) =>
   currentAudience === audience ||
   currentAudience === "COUNSELOR" ||
   !audience ? (
-    <Card>
+    <Card contentEditable={currentAudience !== "CLIENT"}>
       <Title>{title}</Title>
       <Content>{children}</Content>
     </Card>
