@@ -14,7 +14,7 @@ const roles = {
 };
 
 const contextUser = {
-  name: "Cees Ligtelijn"
+  name: "Aard Bakker"
 };
 
 const loggedinUser = {
