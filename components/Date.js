@@ -23,6 +23,4 @@ const Content = styled.p`
   color: gray;
 `;
 
-export default ({ value, setValue }) => (
-  <DatePicker onChange={setValue} value={new Date(value)} />
-);
+export default ({ value, setValue }) => <DatePicker onChange={setValue} />;

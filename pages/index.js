@@ -22,7 +22,10 @@ const roles = {
   COUNSELOR: "Behandelaar",
   MPO: "Medisch Praktijk Ondersteuner"
 };
-
+const Center = styled.div`
+  text-align: center;
+  margin: 0 auto;
+`;
 const Left = styled.div`
   display: grid;
   grid-row-gap: 1rem;
@@ -93,7 +96,9 @@ const App = ({ router, users, session }) => {
         // onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
       >
-        <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/2`} />
+        <Center>
+          <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/2`} />
+        </Center>
         <Form.Item
           label="Email"
           name="email"

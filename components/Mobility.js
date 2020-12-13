@@ -41,7 +41,7 @@ export default ({ value, setValue }) => {
       ...mobility,
       [type]: {
         ...mobility[type],
-        [item]: !Boolean(mobility[type][item])
+        [item]: !Boolean(mobility[type] && mobility[type][item])
       }
     });
   };
