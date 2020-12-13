@@ -1,7 +1,12 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { createGlobalStyle } from "styled-components";
 import useSWR from "swr";
-import { Skeleton, Switch, Card, Avatar } from "antd";
+import { Skeleton, Switch, Card, Avatar, Layout } from "antd";
+const { Content } = Layout;
+import { Button } from "antd";
+import Mobility from "./Mobility";
+import Date from "./Date";
+
 import format from "date-fns/format";
 import {
   EditOutlined,
@@ -18,18 +23,24 @@ const Title = styled.h2`
   font-size: 1.5rem;
 `;
 
+const GlobalStyle = createGlobalStyle`
+  .ant-card-head-title {
+    white-space: pre-wrap;
+  }
+`;
+
 const Created = styled.span`
   font-size: 1rem;
 `;
 
-const Content = styled.p`
-  color: gray;
+const Container = styled.div`
+  padding: 1rem 0;
 `;
 
 const getData = async (key, user) => {
   if (key) {
     const response = await fetch(
-      `http://localhost:3000/api/data/${key}?user=${user}`
+      `${process.env.NEXT_PUBLIC_URL}/api/data/${key}?user=${user}`
     );
     return await response.json();
   }
@@ -37,7 +48,7 @@ const getData = async (key, user) => {
 };
 
 const addGoal = async (goal, key) => {
-  const response = await fetch(`http://localhost:3000/api/${key}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/${key}`, {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=UTF-8"
@@ -53,25 +64,32 @@ export default ({
   slug,
   currentAudience,
   audience,
-  children
+  children,
+  session
 }) => {
   const swrKey = `data/${slug}/${contextUserId}`;
-  const [value, setValue] = useState("Nog niet ingevuld");
-
   const { data: goal, mutate, loading } = useSWR(swrKey, () =>
     getData(slug, contextUserId)
   );
+  const [value, setValue] = useState(undefined);
+
+  useEffect(() => {
+    setValue(goal?.goal);
+  }, [goal]);
 
   const addGoal = async event => {
     event.preventDefault();
 
-    const response = await fetch(`http://localhost:3000/api/data/${slug}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      },
-      body: JSON.stringify({ goal: value, user_id: 2, changed_by: 3 })
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/data/${slug}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify({ goal: value, user_id: 2, changed_by: 3 })
+      }
+    );
     mutate(swrKey);
     return await response.json();
   };
@@ -79,31 +97,55 @@ export default ({
   const handleChanges = event => {
     setValue(event.target.value);
   };
-
-  if (
-    currentAudience === audience ||
-    currentAudience === "COUNSELOR" ||
-    !audience
-  ) {
-    return (
-      <Card loading={loading}>
-        <Meta
-          title={title}
-          description={
-            goal
-              ? `Laatst gewijzigd op ${format(
-                  new Date(goal?.created),
-                  "dd-MM-yyyy HH:mm"
-                )} door ${goal.changed_by}`
-              : null
-          }
-        ></Meta>
-        <ContentEditable onChange={handleChanges} html={value || goal?.goal} />
-        <button disabled={goal?.goal === value} onClick={addGoal}>
-          Submit
-        </button>
-      </Card>
-    );
-  }
-  return null;
+  return (
+    <Card
+      title={title}
+      extra={
+        <Button
+          loading={loading}
+          type="primary"
+          disabled={goal?.goal === value}
+          onClick={addGoal}
+        >
+          Opslaan
+        </Button>
+      }
+      loading={loading}
+    >
+      <GlobalStyle />
+      <Meta
+        avatar={
+          <Avatar
+            src={`https://fakeface.rest/face/view/${goal &&
+              goal?.changed_by}?gender=female&minimum_age=55`}
+          />
+        }
+        description={
+          goal && goal.created && goal.created instanceof Date
+            ? `Laatst gewijzigd op ${format(
+                new Date(goal?.created),
+                "dd-MM-yyyy HH:mm"
+              )}`
+            : null
+        }
+      ></Meta>
+      <Container>
+        {!loading ? (
+          <>
+            {slug === "mobility" ? (
+              <>
+                <Mobility value={goal?.goal} setValue={setValue} />
+              </>
+            ) : slug === "discharge_date" ? (
+              <Date value={goal?.goal} setValue={setValue} />
+            ) : (
+              <Content>
+                <ContentEditable onChange={handleChanges} html={value} />
+              </Content>
+            )}
+          </>
+        ) : null}
+      </Container>
+    </Card>
+  );
 };

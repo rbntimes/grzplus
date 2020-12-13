@@ -36,14 +36,44 @@ const options = {
     //     }
     //   }
     // }),
-    Providers.Auth0({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      domain: process.env.AUTH0_DOMAIN
+    // Providers.Auth0({
+    //   clientId: process.env.AUTH0_CLIENT_ID,
+    //   clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    //   domain: process.env.AUTH0_DOMAIN
+    // }),
+    Providers.Credentials({
+      // The name to display on the sign in form (e.g. 'Sign in with...')
+      name: "Credentials",
+      // The credentials is used to generate a suitable form on the sign in page.
+      // You can specify whatever fields you are expecting to be submitted.
+      // e.g. domain, username, password, 2FA token, etc.
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" }
+      },
+      authorize: async credentials => {
+        // Add logic here to look up the user from the credentials supplied
+        console.log(credentials);
+        const user = await db.one(`SELECT * FROM users WHERE id = $1`, [
+          credentials.id
+        ]);
+
+        if (user) {
+          // Any object returned will be saved in `user` property of the JWT
+          return Promise.resolve(user);
+        } else {
+          // If you return null or false then the credentials will be rejected
+          return Promise.resolve(null);
+          // You can also Reject this callback with an Error or with a URL:
+          // return Promise.reject(new Error('error message')) // Redirect to error page
+          // return Promise.reject('/path/to/redirect')        // Redirect to a URL
+        }
+      }
     })
   ],
   callbacks: {
     session: async session => {
+      console.log(session, "=========");
       const user = await db.one(`SELECT * FROM users WHERE email = $1`, [
         session.user.email
       ]);
@@ -51,9 +81,12 @@ const options = {
       return Promise.resolve({ ...session, dbUser: user });
     },
     signIn: async props => {
-      console.log(props);
+      console.log(props, "----------------------------");
       return Promise.resolve(true);
     }
+  },
+  pages: {
+    signIn: "/auth/qr"
   }
 
   // A database is optional, but required to persist accounts in a database

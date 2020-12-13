@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DatePicker } from "antd";
 
 const Card = styled.article`
   background: white;
@@ -22,18 +23,4 @@ const Content = styled.p`
   color: gray;
 `;
 
-export default ({ year, month, day }) => (
-  <Card>
-    <Box>
-      <Value>{day}</Value>
-    </Box>
-    -
-    <Box>
-      <Value>{month}</Value>
-    </Box>
-    -
-    <Box>
-      <Value>{year}</Value>
-    </Box>
-  </Card>
-);
+export default ({ value, setValue }) => <DatePicker onChange={setValue} />;

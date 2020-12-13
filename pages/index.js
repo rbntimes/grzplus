@@ -5,12 +5,14 @@ import Link from "next/link";
 import useSWR from "swr";
 
 import { signIn, signOut, useSession } from "next-auth/client";
-import { PageHeader } from "antd";
+import QR from "qrcode.react";
+import { csrfToken } from "next-auth/client";
 import Card from "../components/Card";
 import User from "../components/User";
 import Date from "../components/Date";
 import Loading from "../components/Loading";
 import Layout from "../components/Layout";
+import { Form, Input, Button, Checkbox } from "antd";
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 const roles = {
@@ -60,19 +62,75 @@ const Grid = styled.div`
   }
 `;
 
+const layout = {
+  labelCol: {
+    span: 8
+  },
+  wrapperCol: {
+    span: 8
+  }
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16
+  }
+};
+
 const App = ({ router, users, session }) => {
   const { data, loading } = useSWR(
     `/api/users/getRelations?email=${session?.user?.email}`,
     fetcher
   );
-  if (loading) return <Loading />;
+  if (!session) {
+    return (
+      <Form
+        {...layout}
+        name="basic"
+        initialValues={{
+          remember: true
+        }}
+        // onFinish={onFinish}
+        // onFinishFailed={onFinishFailed}
+      >
+        <QR value={`http://192.168.1.4:3000/auth/2`} />
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: "Vul hier je email in"
+            }
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Vul hier je wachtwoord in"
+            }
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    );
+  }
 
   return (
     <>
-      <PageHeader
-        title={`Welkom ${data?.user?.name}`}
-        subTitle="Dit zijn al jouw relaties"
-      />
       <Grid>
         {data ? (
           data.relations?.map(user => <User key={user.id} {...user} />)

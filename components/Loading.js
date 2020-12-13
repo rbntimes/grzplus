@@ -2,7 +2,11 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const Main = styled.main`
-  display: grid;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default () => {

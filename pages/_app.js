@@ -9,6 +9,10 @@ const Main = styled.main`
   font-family: sans-serif;
   padding: 1rem;
 `;
+import Head from "next/head";
+import { Button, PageHeader, Avatar } from "antd";
+
+import { useRouter } from "next/router";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -24,13 +28,40 @@ const theme = {
   }
 };
 
-export default function App({ router, Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   const [session, loading] = useSession();
+  const router = useRouter();
   if (loading) return <Loading />;
   return (
     <Layout router={router} session={session}>
       <GlobalStyle />
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <ThemeProvider theme={theme}>
+        {session ? (
+          <PageHeader
+            title={`${session?.user?.name}`}
+            onBack={
+              session?.dbUser?.role !== "CLIENT" ? () => router.push("/") : null
+            }
+            avatar={
+              <Avatar
+                src={`https://fakeface.rest/face/view/1?gender=female&minimum_age=55`}
+              />
+            }
+            extra={[
+              <Button onClick={signOut} key="1" type="primary">
+                Uitloggen
+              </Button>
+            ]}
+            subTitle={
+              session?.dbUser?.role === "CLIENT"
+                ? `- ${session?.dbUser?.room}`
+                : "Jouw relaties"
+            }
+          />
+        ) : null}
         <Component session={session} {...pageProps} />
       </ThemeProvider>
     </Layout>

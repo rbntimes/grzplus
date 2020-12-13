@@ -45,37 +45,36 @@ const menu = [
 const menuClient = ["Algemeen"];
 
 export default ({ children, router, session, user }) => {
-  if (session) {
-    return (
-      <Layout>
-        {router.route !== "/" ? (
-          <Sider width={200} className="site-layout-background">
-            <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
-              {session?.dbUser?.role !== "CLIENT"
-                ? menu.map(item => (
-                    <Menu.Item
-                      onClick={() => router.push("?test=true")}
-                      key={item}
-                    >
-                      {item}
-                    </Menu.Item>
-                  ))
-                : menuClient.map(item => (
-                    <Menu.Item key={item}>{item}</Menu.Item>
-                  ))}
-            </Menu>
-          </Sider>
-        ) : null}
-        <Content
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280
-          }}
-        >
-          {children}
-        </Content>
-      </Layout>
-    );
-  }
+  return (
+    <Layout>
+      <Content
+        style={{
+          padding: 24,
+          margin: 0,
+          minHeight: 280
+        }}
+      >
+        {children}
+      </Content>
+    </Layout>
+  );
 };
+
+// {router.route !== "/" ? (
+//   <Sider width={200} className="site-layout-background">
+//     <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
+//       {session?.dbUser?.role !== "CLIENT"
+//         ? menu.map(item => (
+//             <Menu.Item
+//               onClick={() => router.push("?test=true")}
+//               key={item}
+//             >
+//               {item}
+//             </Menu.Item>
+//           ))
+//         : menuClient.map(item => (
+//             <Menu.Item key={item}>{item}</Menu.Item>
+//           ))}
+//     </Menu>
+//   </Sider>
+// ) : null}
