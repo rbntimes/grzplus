@@ -13,7 +13,7 @@ export default function SignIn() {
         <input type="text" id="email" name="email" />
       </label>
       <QR
-        value={`http://192.168.1.4:3000/auth/robinvanleeuwen1995@hotmail.com`}
+        value={`${process.env.NEXT_PUBLIC_URL}/auth/robinvanleeuwen1995@hotmail.com`}
       />
       <button type="submit">Sign in with Email</button>
     </form>

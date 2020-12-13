@@ -93,7 +93,7 @@ const App = ({ router, users, session }) => {
         // onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
       >
-        <QR value={`http://192.168.1.4:3000/auth/2`} />
+        <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/2`} />
         <Form.Item
           label="Email"
           name="email"
