@@ -59,6 +59,7 @@ const App = ({ router, session }) => {
   //   router.push("/");
   //   return null;
   // }
+  console.log(data);
 
   return (
     <Grid>
