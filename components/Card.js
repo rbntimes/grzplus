@@ -87,7 +87,11 @@ export default ({
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
-        body: JSON.stringify({ goal: value, user_id: 2, changed_by: 3 })
+        body: JSON.stringify({
+          goal: value,
+          user_id: contextUserId,
+          changed_by: 3
+        })
       }
     );
     mutate(swrKey);
