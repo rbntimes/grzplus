@@ -24,7 +24,7 @@ const Content = styled.p`
   color: gray;
 `;
 
-export default ({ value, setValue }) => {
+export default ({ value, setValue, editable }) => {
   if (value) {
     return (
       <>
