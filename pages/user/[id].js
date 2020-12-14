@@ -60,7 +60,7 @@ const App = ({ router, session }) => {
     return null;
   }
 
-  if (session && session?.dbUser?.id === data?.id) {
+  if (session && session?.dbUser?.id === router.query.id) {
     router.push("/");
     return null;
   }
