@@ -36,11 +36,11 @@ const options = {
     //     }
     //   }
     // }),
-    // Providers.Auth0({
-    //   clientId: process.env.AUTH0_CLIENT_ID,
-    //   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    //   domain: process.env.AUTH0_DOMAIN
-    // }),
+    Providers.Auth0({
+      clientId: process.env.AUTH0_CLIENT_ID,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      domain: process.env.AUTH0_DOMAIN
+    }),
     Providers.Credentials({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",

@@ -4,7 +4,7 @@ import { withRouter } from "next/router";
 import Link from "next/link";
 import useSWR from "swr";
 
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSessio, providers } from "next-auth/client";
 import QR from "qrcode.react";
 import { csrfToken } from "next-auth/client";
 import Card from "../components/Card";
@@ -80,7 +80,7 @@ const tailLayout = {
   }
 };
 
-const App = ({ router, users, session }) => {
+const App = ({ router, users, session, providers }) => {
   const { data, loading } = useSWR(
     `/api/users/getRelations?email=${session?.user?.email}`,
     fetcher
@@ -99,37 +99,14 @@ const App = ({ router, users, session }) => {
         <Center>
           <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/2`} />
         </Center>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Vul hier je email in"
-            }
-          ]}
-        >
-          <Input />
-        </Form.Item>
 
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Vul hier je wachtwoord in"
-            }
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
+        {Object.values(providers).map(provider => (
+          <div key={provider.name}>
+            <button onClick={() => signIn(provider.id)}>
+              Sign in with {provider.name}
+            </button>
+          </div>
+        ))}
       </Form>
     );
   }
@@ -145,6 +122,12 @@ const App = ({ router, users, session }) => {
       </Grid>
     </>
   );
+};
+
+App.getInitialProps = async context => {
+  return {
+    providers: await providers(context)
+  };
 };
 
 export default withRouter(App);
