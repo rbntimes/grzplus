@@ -53,12 +53,12 @@ const App = ({ router, session }) => {
   const { data, loading } = useSWR(`/api/users/${router.query.id}`, fetcher);
   if (!data?.name) return <Loading />;
 
-  if (typeof window !== "undefined" && loading) return null;
-
-  if (!session) {
-    router.push("/");
-    return null;
-  }
+  // if (typeof window !== "undefined" && loading) return null;
+  //
+  // if (!session) {
+  //   router.push("/");
+  //   return null;
+  // }
 
   return (
     <Grid>
