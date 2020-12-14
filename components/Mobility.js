@@ -35,7 +35,12 @@ const Mobility = styled.div`
 `;
 
 export default ({ value, setValue }) => {
-  const [mobility, setMobility] = useState({ ...value });
+  const [mobility, setMobility] = useState(value);
+  const types = {
+    room: [],
+    department: [],
+    outside: []
+  };
   const handleMobility = (item, type) => {
     setMobility({
       ...mobility,
@@ -49,11 +54,10 @@ export default ({ value, setValue }) => {
   useEffect(() => {
     setValue(mobility);
   }, [mobility]);
-
-  if (value) {
+  if (value && mobility) {
     return (
       <>
-        {Object.keys(value).map(type => (
+        {Object.keys(types).map(type => (
           <>
             <h3>
               Mobiliteit{" "}

@@ -140,7 +140,11 @@ export default ({
               <Date value={goal?.goal} setValue={setValue} />
             ) : (
               <Content>
-                <ContentEditable onChange={handleChanges} html={value} />
+                {session?.dbUser?.role !== "CLIENT" ? (
+                  <ContentEditable onChange={handleChanges} html={value} />
+                ) : (
+                  value
+                )}
               </Content>
             )}
           </>

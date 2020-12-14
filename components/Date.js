@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { DatePicker } from "antd";
+import format from "date-fns/format";
 
 const Card = styled.article`
   background: white;
@@ -23,4 +24,15 @@ const Content = styled.p`
   color: gray;
 `;
 
-export default ({ value, setValue }) => <DatePicker onChange={setValue} />;
+export default ({ value, setValue }) => {
+  console.log(value);
+  if (value) {
+    return (
+      <>
+        <h2>{format(new Date(value), "dd-MM-yyyy")}</h2>
+        <DatePicker onChange={setValue} />
+      </>
+    );
+  }
+  return null;
+};

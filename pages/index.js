@@ -101,11 +101,12 @@ const App = ({ router, users, session, providers }) => {
         </Center>
 
         {Object.values(providers).map(provider => (
-          <div key={provider.name}>
-            <button onClick={() => signIn(provider.id)}>
-              Sign in with {provider.name}
-            </button>
-          </div>
+          <Form.Item {...tailLayout} key={provider.name}>
+            <h2>Of log in met gebruikersnaam en wachtwoord </h2>
+            <Button type="primary" onClick={() => signIn(provider.id)}>
+              Klik hier om in te loggen
+            </Button>
+          </Form.Item>
         ))}
       </Form>
     );
