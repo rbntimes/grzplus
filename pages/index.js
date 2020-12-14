@@ -100,14 +100,12 @@ const App = ({ router, users, session, providers }) => {
           <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/2`} />
         </Center>
 
-        {Object.values(providers).map(provider => (
-          <Form.Item {...tailLayout} key={provider.name}>
-            <h2>Of log in met gebruikersnaam en wachtwoord </h2>
-            <Button type="primary" onClick={() => signIn(provider.id)}>
-              Klik hier om in te loggen
-            </Button>
-          </Form.Item>
-        ))}
+        <Form.Item {...tailLayout} key={"auth0"}>
+          <h2>Of log in met gebruikersnaam en wachtwoord </h2>
+          <Button type="primary" onClick={() => signIn("auth0")}>
+            Klik hier om in te loggen
+          </Button>
+        </Form.Item>
       </Form>
     );
   }
