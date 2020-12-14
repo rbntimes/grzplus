@@ -54,63 +54,61 @@ const App = ({ router, session }) => {
   if (!data?.name) return <Loading />;
 
   return (
-    <>
-      <Grid>
-        <Card
-          title={`Mobiliteit ${data?.name}`}
-          contextUserId={router.query.id}
-          currentAudience={router.query.audience}
-          slug="mobility"
-          audience="MPO"
-        ></Card>
+    <Grid>
+      <Card
+        title={`Mobiliteit ${data?.name}`}
+        contextUserId={router.query.id}
+        currentAudience={router.query.audience}
+        slug="mobility"
+        audience="MPO"
+      ></Card>
 
-        <Card
-          contextUserId={router.query.id}
-          slug="exercises"
-          title={`Oefeningen van ${data?.name}`}
-          currentAudience={router.query.audience}
-        />
-        <Card
-          contextUserId={router.query.id}
-          title="DSM-V"
-          slug="dsm"
-          currentAudience={router.query.audience}
-          audience="PSYCHOLOOG"
-        />
-        <Card
-          contextUserId={router.query.id}
-          title="Slikadvies"
-          slug="swallow_advice"
-          audience="DIETIST"
-          currentAudience={router.query.audience}
-        />
-        <Card
-          contextUserId={router.query.id}
-          title="Voorlopige ontslagdatum"
-          slug="discharge_date"
-          currentAudience={router.query.audience}
-        />
-        <Card
-          contextUserId={router.query.id}
-          slug="goals"
-          title="Doel van de week"
-          currentAudience={router.query.audience}
-        />
-        <Card
-          contextUserId={router.query.id}
-          title="Naam + foto's van behandelaren"
-          slug="counselors_list"
-          audience="CLIENT"
-          currentAudience={router.query.audience}
-        />
-        <Card
-          contextUserId={router.query.id}
-          slug="agreements"
-          title="Afspraken"
-          currentAudience={router.query.audience}
-        />
-      </Grid>
-    </>
+      <Card
+        contextUserId={router.query.id}
+        slug="exercises"
+        title={`Oefeningen van ${data?.name}`}
+        currentAudience={router.query.audience}
+      />
+      <Card
+        contextUserId={router.query.id}
+        title="DSM-V"
+        slug="dsm"
+        currentAudience={router.query.audience}
+        audience="PSYCHOLOOG"
+      />
+      <Card
+        contextUserId={router.query.id}
+        title="Slikadvies"
+        slug="swallow_advice"
+        audience="DIETIST"
+        currentAudience={router.query.audience}
+      />
+      <Card
+        contextUserId={router.query.id}
+        title="Voorlopige ontslagdatum"
+        slug="discharge_date"
+        currentAudience={router.query.audience}
+      />
+      <Card
+        contextUserId={router.query.id}
+        slug="goals"
+        title="Doel van de week"
+        currentAudience={router.query.audience}
+      />
+      <Card
+        contextUserId={router.query.id}
+        title="Naam + foto's van behandelaren"
+        slug="counselors_list"
+        audience="CLIENT"
+        currentAudience={router.query.audience}
+      />
+      <Card
+        contextUserId={router.query.id}
+        slug="agreements"
+        title="Afspraken"
+        currentAudience={router.query.audience}
+      />
+    </Grid>
   );
 };
 
