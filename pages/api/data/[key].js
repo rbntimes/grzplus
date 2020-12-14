@@ -20,11 +20,11 @@ export default async (req, res) => {
     const { key, user } = req.query;
 
     try {
-      const goals = await db.one(
+      const goals = await db.any(
         `SELECT * FROM ${key} WHERE user_id = $1 ORDER BY id DESC LIMIT 1`,
         [user]
       );
-      res.status(200).json(goals);
+      res.status(200).json(goals[0] || {});
     } catch (error) {
       res
         .status(500)

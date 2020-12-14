@@ -43,7 +43,9 @@ export default function App({ Component, pageProps }) {
           <PageHeader
             title={`${session?.user?.name}`}
             onBack={
-              session?.dbUser?.role !== "CLIENT" ? () => router.push("/") : null
+              session?.dbUser?.role !== "CLIENT" && router.pathname !== "/"
+                ? () => router.push("/")
+                : null
             }
             avatar={
               <Avatar

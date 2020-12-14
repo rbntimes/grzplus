@@ -97,7 +97,13 @@ const App = ({ router, users, session, providers }) => {
         // onFinishFailed={onFinishFailed}
       >
         <Center>
+          <h2>Cees</h2>
           <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/2`} />
+        </Center>
+
+        <Center>
+          <h2>Hylke</h2>
+          <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/3`} />
         </Center>
 
         <Form.Item {...tailLayout} key={"auth0"}>

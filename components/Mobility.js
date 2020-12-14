@@ -35,18 +35,19 @@ const Mobility = styled.div`
 `;
 
 export default ({ value, setValue }) => {
-  const [mobility, setMobility] = useState(value);
   const types = {
     room: [],
     department: [],
     outside: []
   };
+  const [mobility, setMobility] = useState(value);
+
   const handleMobility = (item, type) => {
     setMobility({
       ...mobility,
       [type]: {
-        ...mobility[type],
-        [item]: !Boolean(mobility[type] && mobility[type][item])
+        ...(mobility && mobility[type] ? mobility[type] : null),
+        [item]: !Boolean(mobility && mobility[type] && mobility[type][item])
       }
     });
   };
@@ -54,7 +55,7 @@ export default ({ value, setValue }) => {
   useEffect(() => {
     setValue(mobility);
   }, [mobility]);
-  if (value && mobility) {
+  if (types) {
     return (
       <>
         {Object.keys(types).map(type => (
@@ -69,17 +70,27 @@ export default ({ value, setValue }) => {
             </h3>
             <MobilityList>
               <Mobility
-                checked={mobility[type]?.wheelchair}
+                checked={
+                  mobility && mobility[type]
+                    ? mobility[type]?.wheelchair
+                    : false
+                }
                 onClick={() => handleMobility("wheelchair", type)}
                 src="/wheelchair.svg"
               />
               <Mobility
-                checked={mobility[type]?.walkingstick}
+                checked={
+                  mobility && mobility[type]
+                    ? mobility[type]?.walkingstick
+                    : false
+                }
                 onClick={() => handleMobility("walkingstick", type)}
                 src="/walking-stick.svg"
               />
               <Mobility
-                checked={mobility[type]?.walker}
+                checked={
+                  mobility && mobility[type] ? mobility[type]?.walker : false
+                }
                 onClick={() => handleMobility("walker", type)}
                 src="/walker.svg"
               />
