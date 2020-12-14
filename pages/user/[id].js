@@ -60,11 +60,6 @@ const App = ({ router, session }) => {
     return null;
   }
 
-  if (session && session?.dbUser?.id === router.query.id) {
-    router.push("/");
-    return null;
-  }
-
   return (
     <Grid>
       <Card
