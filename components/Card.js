@@ -141,7 +141,11 @@ export default ({
                 <Mobility value={goal?.goal} setValue={setValue} />
               </>
             ) : slug === "discharge_date" ? (
-              <Date value={goal?.goal} setValue={setValue} />
+              <Date
+                value={goal?.goal}
+                editable={session?.dbUser?.role !== "CLIENT"}
+                setValue={setValue}
+              />
             ) : (
               <Content>
                 {session?.dbUser?.role !== "CLIENT" ? (

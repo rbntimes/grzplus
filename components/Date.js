@@ -25,14 +25,14 @@ const Content = styled.p`
 `;
 
 export default ({ value, setValue }) => {
-  console.log(value);
   if (value) {
     return (
       <>
         <h2>{format(new Date(value), "dd-MM-yyyy")}</h2>
-        <DatePicker onChange={setValue} />
+        {editable ? <DatePicker onChange={setValue} /> : null}
       </>
     );
   }
+
   return null;
 };
