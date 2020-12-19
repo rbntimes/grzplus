@@ -8,7 +8,7 @@ export default function SignIn({ csrfToken }) {
   useEffect(() => {
     signIn("credentials", {
       id: router.query.userId,
-      callbackUrl: `${process.env.NEXT_PUBLIC_URL}/user/${router.query.userId}`
+      callbackUrl: `/`
     });
   }, []);
 

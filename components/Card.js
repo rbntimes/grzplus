@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import useSWR from "swr";
-import { Skeleton, Switch, Card, Avatar, Layout } from "antd";
+import { Skeleton, Switch, Card, Avatar, Layout, Tooltip } from "antd";
 const { Content } = Layout;
 import { Button } from "antd";
 import Mobility from "./Mobility";
 import Date from "./Date";
-
+import Link from "next/link";
+import isValid from "date-fns/isValid";
+import toDate from "date-fns/toDate";
 import format from "date-fns/format";
+import parse from "date-fns/parse";
+import parseISO from "date-fns/parseISO";
 import {
   EditOutlined,
   EllipsisOutlined,
-  SettingOutlined
+  SettingOutlined,
+  InfoCircleOutlined,
+  HistoryOutlined,
+  SaveOutlined
 } from "@ant-design/icons";
 
 const { Meta } = Card;
@@ -74,7 +81,7 @@ export default ({
   const [value, setValue] = useState(undefined);
 
   useEffect(() => {
-    setValue(goal?.goal);
+    setValue(goal?.goal || "Nog niet ingevuld");
   }, [goal]);
 
   const addGoal = async event => {
@@ -104,60 +111,69 @@ export default ({
   return (
     <Card
       title={title}
-      extra={
+      loading={loading}
+      actions={[
+        <Tooltip
+          placement="topLeft"
+          title="Hier komt uitleg"
+          arrowPointAtCenter
+        >
+          <InfoCircleOutlined />
+        </Tooltip>,
+        <Link
+          href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
+        >
+          <HistoryOutlined />
+        </Link>,
         <Button
           loading={loading}
           type="primary"
           disabled={goal?.goal === value}
           onClick={addGoal}
         >
-          Opslaan
+          <SaveOutlined />
         </Button>
-      }
-      loading={loading}
+      ]}
     >
       <GlobalStyle />
-      <Meta
-        avatar={
-          <Avatar
-            src={`https://fakeface.rest/face/view/${goal &&
-              goal?.changed_by}?gender=female&minimum_age=55`}
-          />
-        }
-        description={
-          goal && goal.created && goal.created instanceof Date
-            ? `Laatst gewijzigd op ${format(
-                new Date(goal?.created),
-                "dd-MM-yyyy HH:mm"
-              )}`
-            : null
-        }
-      ></Meta>
-      <Container>
-        {!loading ? (
-          <>
-            {slug === "mobility" ? (
-              <>
-                <Mobility value={goal?.goal} setValue={setValue} />
-              </>
-            ) : slug === "discharge_date" ? (
-              <Date
-                value={goal?.goal}
-                editable={session?.dbUser?.role !== "CLIENT"}
-                setValue={setValue}
-              />
-            ) : (
-              <Content>
-                {session?.dbUser?.role !== "CLIENT" ? (
-                  <ContentEditable onChange={handleChanges} html={value} />
-                ) : (
-                  value
-                )}
-              </Content>
-            )}
-          </>
+      <>
+        {goal?.created ? (
+          <Meta
+            avatar={
+              <Avatar src={`https://randomuser.me/api/portraits/men/21.jpg`} />
+            }
+            description={`Laatst gewijzigd op ${format(
+              parseISO(goal?.created),
+              "dd-MM-yyyy"
+            )} door Hylke Vink (Fysiotherapeut)`}
+          ></Meta>
         ) : null}
-      </Container>
+        <Container>
+          {!loading ? (
+            <>
+              {slug === "mobility" ? (
+                <>
+                  <Mobility value={goal?.goal} setValue={setValue} />
+                </>
+              ) : slug === "discharge_date" ? (
+                <Date
+                  value={goal?.goal}
+                  editable={session?.dbUser?.role !== "CLIENT"}
+                  setValue={setValue}
+                />
+              ) : (
+                <Content>
+                  {session?.dbUser?.role !== "CLIENT" ? (
+                    <ContentEditable onChange={handleChanges} html={value} />
+                  ) : (
+                    value
+                  )}
+                </Content>
+              )}
+            </>
+          ) : null}
+        </Container>
+      </>
     </Card>
   );
 };

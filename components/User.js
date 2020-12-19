@@ -23,6 +23,7 @@ export default ({ name, id, room, age, gender }) => {
   return (
     <Link href={`/user/${id}`}>
       <Card
+        hoverable
         style={{ width: "100%", cursor: "pointer" }}
         cover={
           <img

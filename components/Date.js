@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { DatePicker } from "antd";
 import format from "date-fns/format";
+import parseISO from "date-fns/parseISO";
 
 const Card = styled.article`
   background: white;
@@ -25,14 +26,10 @@ const Content = styled.p`
 `;
 
 export default ({ value, setValue, editable }) => {
-  if (value) {
-    return (
-      <>
-        <h2>{format(new Date(value), "dd-MM-yyyy")}</h2>
-        {editable ? <DatePicker onChange={setValue} /> : null}
-      </>
-    );
-  }
-
-  return null;
+  return (
+    <>
+      {value ? <h2>{format(parseISO(value), "dd-MM-yyyy")}</h2> : null}
+      {editable ? <DatePicker onChange={setValue} /> : null}
+    </>
+  );
 };

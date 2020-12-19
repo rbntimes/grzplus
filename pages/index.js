@@ -81,10 +81,15 @@ const tailLayout = {
 };
 
 const App = ({ router, users, session, providers }) => {
+  if (session && session?.dbUser?.role === "CLIENT") {
+    router.push(`/user/${session?.dbUser?.id}`);
+    return <span>redirecting</span>;
+  }
   const { data, loading } = useSWR(
     `/api/users/getRelations?email=${session?.user?.email}`,
     fetcher
   );
+  console.log(data);
   if (!session) {
     return (
       <Form

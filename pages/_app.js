@@ -30,8 +30,18 @@ const theme = {
 
 export default function App({ Component, pageProps }) {
   const [session, loading] = useSession();
+  console.log(session);
   const router = useRouter();
   if (loading) return <Loading />;
+  if (
+    !session &&
+    router.pathname !== "/" &&
+    !router.pathname.startsWith("/auth")
+  ) {
+    router.push("/");
+    return <span>redirecting</span>;
+  }
+
   return (
     <Layout router={router} session={session}>
       <GlobalStyle />
@@ -41,27 +51,32 @@ export default function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         {session ? (
           <PageHeader
-            title={`${session?.user?.name}`}
+            title={
+              session?.dbUser?.role === "CLIENT"
+                ? session?.dbUser?.name
+                : router.pathname !== "/"
+                ? "Terug"
+                : router.pathname === "/"
+                ? session?.dbUser?.name
+                : "Ga terug"
+            }
             onBack={
-              session?.dbUser?.role !== "CLIENT" && router.pathname !== "/"
-                ? () => router.push("/")
+              (session?.dbUser?.role !== "CLIENT" && router.pathname !== "/") ||
+              (session?.dbUser?.role === "CLIENT" &&
+                router.pathname === "/user/history/[id]")
+                ? () => router.back()
                 : null
             }
-            avatar={
-              <Avatar
-                src={`https://fakeface.rest/face/view/1?gender=female&minimum_age=55`}
-              />
-            }
+            avatar={{
+              src: (
+                <Avatar src="https://randomuser.me/api/portraits/men/21.jpg" />
+              )
+            }}
             extra={[
               <Button onClick={signOut} key="1" type="primary">
                 Uitloggen
               </Button>
             ]}
-            subTitle={
-              session?.dbUser?.role === "CLIENT"
-                ? `- ${session?.dbUser?.room}`
-                : "Jouw relaties"
-            }
           />
         ) : null}
         <Component session={session} {...pageProps} />
