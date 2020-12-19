@@ -12,7 +12,7 @@ import User from "../components/User";
 import Date from "../components/Date";
 import Loading from "../components/Loading";
 import Layout from "../components/Layout";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, Divider } from "antd";
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 const roles = {
@@ -98,25 +98,48 @@ const App = ({ router, users, session, providers }) => {
         initialValues={{
           remember: true
         }}
-        // onFinish={onFinish}
+        onFinish={values =>
+          signIn("credentials", { email: values.email, password: "1234" })
+        }
         // onFinishFailed={onFinishFailed}
       >
         <Center>
           <h2>Cees</h2>
-          <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/2`} />
+          <QR
+            value={`${process.env.NEXT_PUBLIC_URL}/auth/cees@communicatieboard.nl`}
+          />
         </Center>
 
         <Center>
           <h2>Hylke</h2>
-          <QR value={`${process.env.NEXT_PUBLIC_URL}/auth/3`} />
+          <QR
+            value={`${process.env.NEXT_PUBLIC_URL}/auth/hylke@communicatieboard.nl`}
+          />
         </Center>
 
-        <Form.Item {...tailLayout} key={"auth0"}>
-          <h2>Of log in met gebruikersnaam en wachtwoord </h2>
-          <Button type="primary" onClick={() => signIn("auth0")}>
-            Klik hier om in te loggen
-          </Button>
+        <Center>
+          <Divider />
+          <h2>Of log in met gebruikersnaam en wachtwoord</h2>
+        </Center>
+
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <Input />
         </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Center>
+          <Button htmlType="submit">Inloggen</Button>
+        </Center>
       </Form>
     );
   }

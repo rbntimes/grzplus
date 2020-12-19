@@ -13,20 +13,14 @@ export default async (req, res) => {
       session.user?.email
     ]);
 
-    const users = await fetch(
-      "https://randomuser.me/api/?nat=nl&results=8&seed=grzplus"
-    );
+    // const users = await fetch(
+    //   "https://randomuser.me/api/?nat=nl&results=8&seed=grzplus"
+    // );
 
-    const data = await users.json();
-    if (data.results) {
-      res.status(200).json({
-        user,
-        relations: data.results.map((user, index) => ({
-          ...relations[index],
-          picture: user.picture.large
-        }))
-      });
-    }
+    res.status(200).json({
+      user,
+      relations
+    });
   } catch (error) {
     res
       .status(500)

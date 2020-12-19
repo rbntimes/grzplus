@@ -54,8 +54,8 @@ const options = {
       authorize: async credentials => {
         // Add logic here to look up the user from the credentials supplied
         console.log(credentials);
-        const user = await db.one(`SELECT * FROM users WHERE id = $1`, [
-          credentials.id
+        const user = await db.one(`SELECT * FROM users WHERE email = $1`, [
+          credentials.email
         ]);
 
         if (user) {
@@ -63,7 +63,7 @@ const options = {
           return Promise.resolve(user);
         } else {
           // If you return null or false then the credentials will be rejected
-          return Promise.resolve(null);
+          return Promise.reject("/");
           // You can also Reject this callback with an Error or with a URL:
           // return Promise.reject(new Error('error message')) // Redirect to error page
           // return Promise.reject('/path/to/redirect')        // Redirect to a URL
@@ -73,7 +73,6 @@ const options = {
   ],
   callbacks: {
     session: async session => {
-      console.log(session, "=========");
       const user = await db.one(`SELECT * FROM users WHERE email = $1`, [
         session.user.email
       ]);
@@ -84,9 +83,6 @@ const options = {
       console.log(props, "----------------------------");
       return Promise.resolve(true);
     }
-  },
-  pages: {
-    signIn: "/auth/qr"
   }
 
   // A database is optional, but required to persist accounts in a database
