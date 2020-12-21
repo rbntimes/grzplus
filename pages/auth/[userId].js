@@ -7,12 +7,12 @@ export default function SignIn({ csrfToken }) {
   const router = useRouter();
   useEffect(() => {
     signIn("credentials", {
-      id: router.query.userId,
+      email: router.query.userId,
       callbackUrl: `/`
     });
   }, []);
 
-  return <span>loading</span>;
+  return <span>Aan het laden</span>;
 }
 
 // export default function SignIn({ csrfToken }) {
