@@ -18,6 +18,7 @@ const roles = {
   COUNSELOR: "Behandelaar",
   MPO: "Medisch Praktijk Ondersteuner"
 };
+import ContentEditable from "react-contenteditable";
 
 const contextUser = {
   name: "Aard Bakker"
@@ -84,7 +85,7 @@ const App = ({ router, session }) => {
                   parseISO(item?.created),
                   "dd-MM-yyyy"
                 )} door Hylke Vink`}
-                description={item?.goal}
+                description={<ContentEditable disabled html={item?.goal} />}
               />
             </List.Item>
           )}

@@ -75,6 +75,7 @@ const App = ({ router, session }) => {
             currentAudience={router.query.audience}
             slug="mobility"
             audience="MPO"
+            session={session}
           ></Card>
 
           <Card
@@ -82,13 +83,7 @@ const App = ({ router, session }) => {
             slug="exercises"
             title={`Oefeningen van ${data?.name}`}
             currentAudience={router.query.audience}
-          />
-          <Card
-            contextUserId={router.query.id}
-            title="DSM-V"
-            slug="dsm"
-            currentAudience={router.query.audience}
-            audience="PSYCHOLOOG"
+            session={session}
           />
           <Card
             contextUserId={router.query.id}
@@ -96,6 +91,7 @@ const App = ({ router, session }) => {
             slug="swallow_advice"
             audience="DIETIST"
             currentAudience={router.query.audience}
+            session={session}
           />
         </Left>
         <Right>
@@ -104,12 +100,14 @@ const App = ({ router, session }) => {
             title="Voorlopige ontslagdatum"
             slug="discharge_date"
             currentAudience={router.query.audience}
+            session={session}
           />
           <Card
             contextUserId={router.query.id}
             slug="goals"
             title="Doel van de week"
             currentAudience={router.query.audience}
+            session={session}
           />
           <Card
             contextUserId={router.query.id}
@@ -117,12 +115,14 @@ const App = ({ router, session }) => {
             slug="counselors_list"
             audience="CLIENT"
             currentAudience={router.query.audience}
+            session={session}
           />
           <Card
             contextUserId={router.query.id}
             slug="agreements"
             title="Afspraken"
             currentAudience={router.query.audience}
+            session={session}
           />
         </Right>
       </Grid>

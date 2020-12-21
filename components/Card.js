@@ -118,13 +118,22 @@ export default ({
           title="Hier komt uitleg"
           arrowPointAtCenter
         >
-          <InfoCircleOutlined />
+          <Button>
+            <InfoCircleOutlined />
+          </Button>
         </Tooltip>,
-        <Link
-          href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
-        >
-          <HistoryOutlined />
-        </Link>,
+        <>
+          {slug !== "mobility" ? (
+            <Link
+              href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
+            >
+              <Button>
+                {" "}
+                <HistoryOutlined />
+              </Button>
+            </Link>
+          ) : null}
+        </>,
         <Button
           loading={loading}
           type="primary"
@@ -163,11 +172,11 @@ export default ({
                 />
               ) : (
                 <Content>
-                  {session?.dbUser?.role !== "CLIENT" ? (
-                    <ContentEditable onChange={handleChanges} html={value} />
-                  ) : (
-                    value
-                  )}
+                  <ContentEditable
+                    disabled={session?.dbUser?.role === "CLIENT"}
+                    onChange={handleChanges}
+                    html={value}
+                  />
                 </Content>
               )}
             </>
