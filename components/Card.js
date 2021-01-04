@@ -115,23 +115,26 @@ export default ({
       actions={[
         <Tooltip
           placement="topLeft"
-          title="Hier komt uitleg"
+          title={goal?.info?.goal}
           arrowPointAtCenter
         >
-          <Button>
-            <InfoCircleOutlined />
+          <Button icon={<InfoCircleOutlined />}>
+            <Link
+              href={`/user/info/${slug}?title=${title}&user=${contextUserId}`}
+            >
+              Extra
+            </Link>
           </Button>
         </Tooltip>,
         <>
           {slug !== "mobility" ? (
-            <Link
-              href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
-            >
-              <Button>
-                {" "}
-                <HistoryOutlined />
-              </Button>
-            </Link>
+            <Button icon={<HistoryOutlined />}>
+              <Link
+                href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
+              >
+                Geschiedenis
+              </Link>
+            </Button>
           ) : null}
         </>,
         <Button
@@ -139,8 +142,9 @@ export default ({
           type="primary"
           disabled={goal?.goal === value}
           onClick={addGoal}
+          icon={<SaveOutlined />}
         >
-          <SaveOutlined />
+          Opslaan
         </Button>
       ]}
     >

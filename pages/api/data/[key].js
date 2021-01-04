@@ -24,7 +24,11 @@ export default async (req, res) => {
         `SELECT * FROM ${key} WHERE user_id = $1 ORDER BY id DESC LIMIT 1`,
         [user]
       );
-      res.status(200).json(goals);
+      const info = await db.oneOrNone(
+        `SELECT * FROM info WHERE user_id = $1 AND key = $2 ORDER BY id DESC LIMIT 1`,
+        [user, key]
+      );
+      res.status(200).json({ ...goals, info });
     } catch (error) {
       res
         .status(500)

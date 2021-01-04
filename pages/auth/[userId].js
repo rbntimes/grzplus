@@ -8,6 +8,7 @@ export default function SignIn({ csrfToken }) {
   useEffect(() => {
     signIn("credentials", {
       email: router.query.userId,
+      password: "1234",
       callbackUrl: `/`
     });
   }, []);
