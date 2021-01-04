@@ -36,7 +36,8 @@ export default function App({ Component, pageProps }) {
   if (
     !session &&
     router.pathname !== "/" &&
-    !router.pathname.startsWith("/auth")
+    !router.pathname.startsWith("/auth") &&
+    !router.pathname.startsWith("/test")
   ) {
     router.push("/");
     return <span>redirecting</span>;
