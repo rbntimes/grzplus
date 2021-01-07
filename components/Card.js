@@ -5,6 +5,8 @@ import { Skeleton, Switch, Card, Avatar, Layout, Tooltip } from "antd";
 const { Content } = Layout;
 import { Button } from "antd";
 import Mobility from "./Mobility";
+import Transfer from "./Transfer";
+import Cognitive from "./Cognitive";
 import Date from "./Date";
 import Link from "next/link";
 import isValid from "date-fns/isValid";
@@ -108,6 +110,7 @@ export default ({
   const handleChanges = event => {
     setValue(event.target.value);
   };
+
   return (
     <Card
       title={title}
@@ -126,17 +129,13 @@ export default ({
             </Link>
           </Button>
         </Tooltip>,
-        <>
-          {slug !== "mobility" ? (
-            <Button icon={<HistoryOutlined />}>
-              <Link
-                href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
-              >
-                Geschiedenis
-              </Link>
-            </Button>
-          ) : null}
-        </>,
+        <Button icon={<HistoryOutlined />}>
+          <Link
+            href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
+          >
+            Geschiedenis
+          </Link>
+        </Button>,
         <Button
           loading={loading}
           type="primary"
@@ -167,6 +166,14 @@ export default ({
               {slug === "mobility" ? (
                 <>
                   <Mobility value={goal?.goal} setValue={setValue} />
+                </>
+              ) : slug === "transfer" ? (
+                <>
+                  <Transfer value={goal?.goal} setValue={setValue} />
+                </>
+              ) : slug === "cognitive" ? (
+                <>
+                  <Cognitive value={goal?.goal} setValue={setValue} />
                 </>
               ) : slug === "discharge_date" ? (
                 <Date

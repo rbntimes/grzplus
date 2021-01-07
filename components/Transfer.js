@@ -14,36 +14,36 @@ const Title = styled.h2`
 const Created = styled.span`
   font-size: 1rem;
 `;
+
+const Content = styled.p`
+  color: gray;
+`;
+
 const Label = styled.label`
-  font-size: 12px;
+  font-size: 10px;
   /* word-break: break-all; */
   width: 100%;
   color: ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
-`;
-const Content = styled.p`
-  color: gray;
 `;
 
 const MobilityList = styled.div`
   display: flex;
 `;
-
+// background: ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
 const Mobility = styled.div`
-  background: ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  border: 1px solid ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
+  height: 80px;
   background-image: ${({ src }) => `url(${src})`};
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;
-  margin: 0 1rem 1rem 0;
+  margin: 0 0.5rem 1rem 0;
 `;
 
 export default ({ value, setValue }) => {
   const types = {
-    room: "",
-    department: "",
-    outside: ""
+    room: ""
   };
   const [mobility, setMobility] = useState(value);
 
@@ -78,99 +78,111 @@ export default ({ value, setValue }) => {
             <MobilityList>
               <Label
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac1" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "passievelift"
+                    : false
                 }
               >
                 <Mobility
                   checked={
                     mobility && mobility[type]
-                      ? mobility[type] === "fac1"
+                      ? mobility[type] === "passievelift"
                       : false
                   }
-                  onClick={() => handleMobility("fac1", type)}
-                  src="/mobility/fac1.svg"
+                  onClick={() => handleMobility("passievelift", type)}
+                  src="/transfer/passievelift.jpg"
                 />
-                Fac-1
+                Passieve lift
               </Label>
               <Label
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac2" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "actievelift"
+                    : false
                 }
               >
                 <Mobility
                   checked={
                     mobility && mobility[type]
-                      ? mobility[type] === "fac2"
+                      ? mobility[type] === "actievelift"
                       : false
                   }
-                  onClick={() => handleMobility("fac2", type)}
-                  src="/mobility/fac2.svg"
+                  onClick={() => handleMobility("actievelift", type)}
+                  src="/transfer/actievelift.jpg"
                 />
-                Fac-2
+                Actieve lift
               </Label>
               <Label
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac3" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "beaopstaphulp"
+                    : false
                 }
               >
                 <Mobility
                   checked={
                     mobility && mobility[type]
-                      ? mobility[type] === "fac3"
+                      ? mobility[type] === "beaopstaphulp"
                       : false
                   }
-                  onClick={() => handleMobility("fac3", type)}
-                  src="/mobility/fac3.svg"
+                  onClick={() => handleMobility("beaopstaphulp", type)}
+                  src="/transfer/beaopstaphulp.jpg"
                 />
-                Fac-3
+                Bea opstaphulp
               </Label>
               <Label
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac4" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "lotusopstaphulp"
+                    : false
                 }
               >
                 <Mobility
                   checked={
                     mobility && mobility[type]
-                      ? mobility[type] === "fac4"
+                      ? mobility[type] === "lotusopstaphulp"
                       : false
                   }
-                  onClick={() => handleMobility("fac4", type)}
-                  src="/mobility/fac4.svg"
+                  onClick={() => handleMobility("lotusopstaphulp", type)}
+                  src="/transfer/lotusopstaphulp.jpeg"
                 />
-                Fac-4
+                Lotus opstaphulp
               </Label>
               <Label
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac5" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "rollator"
+                    : false
                 }
               >
                 <Mobility
                   checked={
                     mobility && mobility[type]
-                      ? mobility[type] === "fac5"
+                      ? mobility[type] === "rollator"
                       : false
                   }
-                  onClick={() => handleMobility("fac5", type)}
-                  src="/mobility/fac5.svg"
+                  onClick={() => handleMobility("rollator", type)}
+                  src="/transfer/rollator.jpg"
                 />
-                Fac-5
+                Rollator
               </Label>
               <Label
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac6" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "kortedraai"
+                    : false
                 }
               >
                 <Mobility
                   checked={
                     mobility && mobility[type]
-                      ? mobility[type] === "fac6"
+                      ? mobility[type] === "kortedraai"
                       : false
                   }
-                  onClick={() => handleMobility("fac6", type)}
-                  src="/mobility/fac6.svg"
+                  onClick={() => handleMobility("kortedraai", type)}
+                  src="/transfer/kortedraai.jpg"
                 />
-                Fac-6
+                Korte draai
               </Label>
             </MobilityList>
           </>

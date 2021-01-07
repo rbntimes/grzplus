@@ -74,22 +74,26 @@ const App = ({ router, session }) => {
             contextUserId={router.query.id}
             currentAudience={router.query.audience}
             slug="mobility"
-            audience="MPO"
             session={session}
           ></Card>
-
           <Card
+            title={`Transfer ${data?.name}`}
             contextUserId={router.query.id}
-            slug="exercises"
-            title={`Oefeningen van ${data?.name}`}
             currentAudience={router.query.audience}
+            slug="transfer"
             session={session}
-          />
+          ></Card>
+          <Card
+            title={`Cognitieve begeleiding ${data?.name}`}
+            contextUserId={router.query.id}
+            currentAudience={router.query.audience}
+            slug="cognitive"
+            session={session}
+          ></Card>
           <Card
             contextUserId={router.query.id}
-            title="Slikadvies"
-            slug="swallow_advice"
-            audience="DIETIST"
+            slug="agreements"
+            title="Afspraken"
             currentAudience={router.query.audience}
             session={session}
           />
@@ -119,8 +123,16 @@ const App = ({ router, session }) => {
           />
           <Card
             contextUserId={router.query.id}
-            slug="agreements"
-            title="Afspraken"
+            slug="exercises"
+            title={`Oefeningen van ${data?.name}`}
+            currentAudience={router.query.audience}
+            session={session}
+          />
+          <Card
+            contextUserId={router.query.id}
+            title="Slikadvies"
+            slug="swallow_advice"
+            audience="DIETIST"
             currentAudience={router.query.audience}
             session={session}
           />

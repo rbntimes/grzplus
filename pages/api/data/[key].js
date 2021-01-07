@@ -20,7 +20,7 @@ export default async (req, res) => {
     const { key, user } = req.query;
 
     try {
-      const goals = await db.one(
+      const goals = await db.oneOrNone(
         `SELECT * FROM ${key} WHERE user_id = $1 ORDER BY id DESC LIMIT 1`,
         [user]
       );

@@ -22,18 +22,7 @@ const Content = styled.p`
 export default ({ name, id, room, age, gender }) => {
   return (
     <Link href={`/user/${id}`}>
-      <Card
-        hoverable
-        style={{ width: "100%", cursor: "pointer" }}
-        cover={
-          <img
-            alt={name}
-            src={`https://fakeface.rest/face/view/${id}?gender=${
-              gender === "MALE" ? "male" : "female"
-            }&minimum_age=55`}
-          />
-        }
-      >
+      <Card hoverable style={{ width: "100%", cursor: "pointer" }}>
         <Meta title={`${name}, ${age}`} description={room} />
       </Card>
     </Link>

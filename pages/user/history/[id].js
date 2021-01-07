@@ -85,7 +85,26 @@ const App = ({ router, session }) => {
                   parseISO(item?.created),
                   "dd-MM-yyyy"
                 )} door Hylke Vink`}
-                description={<ContentEditable disabled html={item?.goal} />}
+                // description={<ContentEditable disabled html={item?.goal} />}
+                description={
+                  router.query.id === "mobility" ? (
+                    <ul>
+                      {Object.keys(item?.goal).map(x => (
+                        <li>{`${
+                          x === "room"
+                            ? "op kamer"
+                            : x === "department"
+                            ? "op afdeling"
+                            : "buiten afdeling"
+                        }: ${item?.goal[x]}`}</li>
+                      ))}
+                    </ul>
+                  ) : router.query.id === "transfer" ? (
+                    <ContentEditable disabled html={item?.goal?.room} />
+                  ) : (
+                    <ContentEditable disabled html={item?.goal} />
+                  )
+                }
               />
             </List.Item>
           )}
