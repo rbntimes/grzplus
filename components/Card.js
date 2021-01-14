@@ -7,6 +7,7 @@ import { Button } from "antd";
 import Mobility from "./Mobility";
 import Reanimation from "./Reanimation";
 import ADL from "./ADL";
+import Exercises from "./Exercises";
 import Transfer from "./Transfer";
 import Cognitive from "./Cognitive";
 import Date from "./Date";
@@ -190,6 +191,14 @@ export default ({
                 {slug === "mobility" ? (
                   <>
                     <Mobility
+                      editable={session?.dbUser?.role !== "CLIENT"}
+                      value={goal?.goal}
+                      setValue={setValue}
+                    />
+                  </>
+                ) : slug === "exercises" ? (
+                  <>
+                    <Exercises
                       editable={session?.dbUser?.role !== "CLIENT"}
                       value={goal?.goal}
                       setValue={setValue}
