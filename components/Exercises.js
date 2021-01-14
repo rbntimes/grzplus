@@ -32,6 +32,11 @@ export default ({ value, setValue, editable }) => {
   useEffect(() => {
     setValue(video);
   }, [video]);
+
+  useEffect(() => {
+    setVideo(value);
+  }, [value]);
+
   return (
     <>
       <label>
