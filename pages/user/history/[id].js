@@ -19,7 +19,7 @@ const roles = {
   MPO: "Medisch Praktijk Ondersteuner"
 };
 import ContentEditable from "react-contenteditable";
-
+import Youtube from "react-youtube";
 const contextUser = {
   name: "Aard Bakker"
 };
@@ -91,6 +91,8 @@ const App = ({ router, session }) => {
                         }: ${item?.goal[x]}`}</li>
                       ))}
                     </ul>
+                  ) : router.query.id === "exercises" ? (
+                    <Youtube videoId={item?.goal} />
                   ) : router.query.id === "transfer" ? (
                     <ContentEditable disabled html={item?.goal?.room} />
                   ) : (
