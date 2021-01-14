@@ -189,23 +189,43 @@ export default ({
               <>
                 {slug === "mobility" ? (
                   <>
-                    <Mobility value={goal?.goal} setValue={setValue} />
+                    <Mobility
+                      editable={session?.dbUser?.role !== "CLIENT"}
+                      value={goal?.goal}
+                      setValue={setValue}
+                    />
                   </>
                 ) : slug === "adl" ? (
                   <>
-                    <ADL value={goal?.goal} setValue={setValue} />
+                    <ADL
+                      editable={session?.dbUser?.role !== "CLIENT"}
+                      value={goal?.goal}
+                      setValue={setValue}
+                    />
                   </>
                 ) : slug === "reanimation" ? (
                   <>
-                    <Reanimation value={goal?.goal} setValue={setValue} />
+                    <Reanimation
+                      editable={session?.dbUser?.role !== "CLIENT"}
+                      value={goal?.goal}
+                      setValue={setValue}
+                    />
                   </>
                 ) : slug === "transfer" ? (
                   <>
-                    <Transfer value={goal?.goal} setValue={setValue} />
+                    <Transfer
+                      editable={session?.dbUser?.role !== "CLIENT"}
+                      value={goal?.goal}
+                      setValue={setValue}
+                    />
                   </>
                 ) : slug === "cognitive" ? (
                   <>
-                    <Cognitive value={goal?.goal} setValue={setValue} />
+                    <Cognitive
+                      editable={session?.dbUser?.role !== "CLIENT"}
+                      value={goal?.goal}
+                      setValue={setValue}
+                    />
                   </>
                 ) : slug === "discharge_date" ? (
                   <Date

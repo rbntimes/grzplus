@@ -48,7 +48,7 @@ const Content = styled.p`
   color: gray;
 `;
 
-export default ({ value, setValue, editable }) => {
+export default ({ editable, value, setValue }) => {
   const [cognitive, setCognitive] = useState(value);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default ({ value, setValue, editable }) => {
     <Container>
       <Item
         checked={cognitive === "strict"}
-        onClick={() => setCognitive("strict")}
+        onClick={!editable ? () => {} : () => setCognitive("strict")}
       >
         <Icon
           active={cognitive === "strict"}
@@ -77,7 +77,7 @@ export default ({ value, setValue, editable }) => {
       </Item>
       <Item
         checked={cognitive === "trial"}
-        onClick={() => setCognitive("trial")}
+        onClick={!editable ? () => {} : () => setCognitive("trial")}
       >
         <Icon
           active={cognitive === "trial"}

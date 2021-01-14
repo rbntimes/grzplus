@@ -42,7 +42,7 @@ const Mobility = styled.div`
   margin: 0 0.5rem 1rem 0;
 `;
 
-export default ({ value, setValue }) => {
+export default ({ editable, value, setValue }) => {
   const types = {
     room: ""
   };
@@ -90,7 +90,11 @@ export default ({ value, setValue }) => {
                       ? mobility[type] === "passievelift"
                       : false
                   }
-                  onClick={() => handleMobility("passievelift", type)}
+                  onClick={
+                    !editable
+                      ? () => {}
+                      : () => handleMobility("passievelift", type)
+                  }
                   src="/transfer/passievelift.jpg"
                 />
                 Passieve lift
@@ -108,7 +112,11 @@ export default ({ value, setValue }) => {
                       ? mobility[type] === "actievelift"
                       : false
                   }
-                  onClick={() => handleMobility("actievelift", type)}
+                  onClick={
+                    !editable
+                      ? () => {}
+                      : () => handleMobility("actievelift", type)
+                  }
                   src="/transfer/actievelift.jpg"
                 />
                 Actieve lift
@@ -126,7 +134,11 @@ export default ({ value, setValue }) => {
                       ? mobility[type] === "beaopstaphulp"
                       : false
                   }
-                  onClick={() => handleMobility("beaopstaphulp", type)}
+                  onClick={
+                    !editable
+                      ? () => {}
+                      : () => handleMobility("beaopstaphulp", type)
+                  }
                   src="/transfer/beaopstaphulp.jpg"
                 />
                 Bea opstaphulp
@@ -144,7 +156,11 @@ export default ({ value, setValue }) => {
                       ? mobility[type] === "lotusopstaphulp"
                       : false
                   }
-                  onClick={() => handleMobility("lotusopstaphulp", type)}
+                  onClick={
+                    !editable
+                      ? () => {}
+                      : () => handleMobility("lotusopstaphulp", type)
+                  }
                   src="/transfer/lotusopstaphulp.jpeg"
                 />
                 Lotus opstaphulp
@@ -162,7 +178,11 @@ export default ({ value, setValue }) => {
                       ? mobility[type] === "rollator"
                       : false
                   }
-                  onClick={() => handleMobility("rollator", type)}
+                  onClick={
+                    !editable
+                      ? () => {}
+                      : () => handleMobility("rollator", type)
+                  }
                   src="/transfer/rollator.jpg"
                 />
                 Rollator
@@ -180,7 +200,11 @@ export default ({ value, setValue }) => {
                       ? mobility[type] === "kortedraai"
                       : false
                   }
-                  onClick={() => handleMobility("kortedraai", type)}
+                  onClick={
+                    !editable
+                      ? () => {}
+                      : () => handleMobility("kortedraai", type)
+                  }
                   src="/transfer/kortedraai.png"
                 />
                 Korte draai

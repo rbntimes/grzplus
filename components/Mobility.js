@@ -39,7 +39,7 @@ const Mobility = styled.div`
   margin: 0 1rem 1rem 0;
 `;
 
-export default ({ value, setValue }) => {
+export default ({ editable, value, setValue }) => {
   const types = {
     room: "",
     department: "",
@@ -80,42 +80,54 @@ export default ({ value, setValue }) => {
                 checked={
                   mobility && mobility[type] ? mobility[type] === "fac1" : false
                 }
-                onClick={() => handleMobility("fac1", type)}
+                onClick={
+                  !editable ? () => {} : () => handleMobility("fac1", type)
+                }
                 src="/mobility/fac1.svg"
               />
               <Mobility
                 checked={
                   mobility && mobility[type] ? mobility[type] === "fac2" : false
                 }
-                onClick={() => handleMobility("fac2", type)}
+                onClick={
+                  !editable ? () => {} : () => handleMobility("fac2", type)
+                }
                 src="/mobility/fac2.svg"
               />
               <Mobility
                 checked={
                   mobility && mobility[type] ? mobility[type] === "fac3" : false
                 }
-                onClick={() => handleMobility("fac3", type)}
+                onClick={
+                  !editable ? () => {} : () => handleMobility("fac3", type)
+                }
                 src="/mobility/fac3.svg"
               />
               <Mobility
                 checked={
                   mobility && mobility[type] ? mobility[type] === "fac4" : false
                 }
-                onClick={() => handleMobility("fac4", type)}
+                onClick={
+                  !editable ? () => {} : () => handleMobility("fac4", type)
+                }
                 src="/mobility/fac4.svg"
               />
               <Mobility
                 checked={
                   mobility && mobility[type] ? mobility[type] === "fac5" : false
                 }
-                onClick={() => handleMobility("fac5", type)}
+                onClick={
+                  !editable ? () => {} : () => handleMobility("fac5", type)
+                }
                 src="/mobility/fac5.svg"
               />
               <Mobility
                 checked={
                   mobility && mobility[type] ? mobility[type] === "fac6" : false
                 }
-                onClick={() => handleMobility("fac6", type)}
+                onClick={
+                  !editable ? () => {} : () => handleMobility("fac6", type)
+                }
                 src="/mobility/fac6.svg"
               />
             </MobilityList>

@@ -99,7 +99,7 @@ const Mobility = styled.div`
   margin: 0 1rem 1rem 0;
 `;
 
-export default ({ value, setValue }) => {
+export default ({ editable, value, setValue }) => {
   const types = {
     "shower-upper": "",
     "shower-lower": "",
@@ -148,7 +148,9 @@ export default ({ value, setValue }) => {
                         ? mobility[type] === choice
                         : false
                     }
-                    onClick={() => handleMobility(choice, type)}
+                    onClick={
+                      !editable ? () => {} : () => handleMobility(choice, type)
+                    }
                     position="center"
                     src={`/adl/choice/${choice}.svg`}
                   />

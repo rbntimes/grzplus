@@ -104,22 +104,16 @@ const App = ({ router, users, session, providers }) => {
         // onFinishFailed={onFinishFailed}
       >
         <Center>
-          <h2>Cees</h2>
-          <QR
-            value={`${process.env.NEXT_PUBLIC_URL}/auth/cees@communicatieboard.nl`}
-          />
-        </Center>
-
-        <Center>
-          <h2>Hylke</h2>
-          <QR
-            value={`${process.env.NEXT_PUBLIC_URL}/auth/hylke@communicatieboard.nl`}
-          />
-        </Center>
-
-        <Center>
+          <div>
+            <img width={250} src="/logo-grzplus.svg" />
+          </div>
           <Divider />
-          <h2>Of log in met gebruikersnaam en wachtwoord</h2>
+
+          <div>
+            <img width={200} src="/ComBo.png" />
+          </div>
+          <Divider />
+          <h2>Log in met gebruikersnaam en wachtwoord</h2>
         </Center>
 
         <Form.Item

@@ -100,13 +100,6 @@ const App = ({ router, session }) => {
             slug="cognitive"
             session={session}
           ></Card>
-          <Card
-            contextUserId={router.query.id}
-            slug="agreements"
-            title="Afspraken"
-            currentAudience={router.query.audience}
-            session={session}
-          />
         </Left>
         <Right>
           {session?.dbUser?.role !== "CLIENT" ? (
@@ -152,6 +145,13 @@ const App = ({ router, session }) => {
             title="Slikadvies"
             slug="swallow_advice"
             audience="DIETIST"
+            currentAudience={router.query.audience}
+            session={session}
+          />
+          <Card
+            contextUserId={router.query.id}
+            slug="agreements"
+            title="Afspraken"
             currentAudience={router.query.audience}
             session={session}
           />

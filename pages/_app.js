@@ -58,7 +58,7 @@ export default function App({ Component, pageProps }) {
                 : router.pathname !== "/"
                 ? "Terug"
                 : router.pathname === "/"
-                ? session?.dbUser?.name
+                ? `${session?.dbUser?.name}, dit zijn jouw relaties`
                 : "Ga terug"
             }
             onBack={
