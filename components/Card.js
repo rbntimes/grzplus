@@ -118,7 +118,11 @@ export default ({
     <Card
       title={title}
       loading={loading}
-      extra={<Button onClick={() => toggleOpen(!open)}>Open kaart</Button>}
+      extra={
+        <Button onClick={() => toggleOpen(!open)}>
+          {open ? "Sluit" : "Open"} kaart
+        </Button>
+      }
       actions={
         open
           ? [
