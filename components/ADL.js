@@ -110,7 +110,12 @@ export default ({ value, setValue }) => {
     toilet: "",
     bed: ""
   };
-  const choices = ["helpen", "begeleiden", "kijken", "zelfstandig"];
+  const choices = [
+    "fysieke-begeleiding",
+    "auditieve-begeleiding",
+    "supervisie",
+    "zelfstandig"
+  ];
   const [mobility, setMobility] = useState(value);
 
   const handleMobility = (item, type) => {
@@ -127,7 +132,7 @@ export default ({ value, setValue }) => {
   useEffect(() => {
     setMobility(value);
   }, [value]);
-  console.log(value, mobility);
+
   if (types) {
     return (
       <>

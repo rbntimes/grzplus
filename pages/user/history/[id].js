@@ -59,14 +59,6 @@ const App = ({ router, session }) => {
     fetcher
   );
   if (!data) return <Loading />;
-  console.log(data, "dataaa");
-  // if (typeof window !== "undefined" && loading) return null;
-  //
-  // if (!session) {
-  //   router.push("/");
-  //   return null;
-  // }
-  console.log(data);
 
   return (
     <Layout>

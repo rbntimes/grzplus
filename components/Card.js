@@ -83,6 +83,7 @@ export default ({
     getData(slug, contextUserId)
   );
   const [value, setValue] = useState(undefined);
+  const [open, toggleOpen] = useState(true);
 
   useEffect(() => {
     setValue(goal?.goal || "Nog niet ingevuld");
@@ -117,93 +118,111 @@ export default ({
     <Card
       title={title}
       loading={loading}
-      actions={[
-        <Tooltip
-          placement="topLeft"
-          title={goal?.info?.goal}
-          arrowPointAtCenter
-        >
-          <Button icon={<InfoCircleOutlined />}>
-            <Link
-              href={`/user/info/${slug}?title=${title}&user=${contextUserId}`}
-            >
-              Extra
-            </Link>
-          </Button>
-        </Tooltip>,
-        <Button icon={<HistoryOutlined />}>
-          <Link
-            href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
-          >
-            Geschiedenis
-          </Link>
-        </Button>,
-        <Button
-          loading={loading}
-          type="primary"
-          disabled={goal?.goal === value}
-          onClick={addGoal}
-          icon={<SaveOutlined />}
-        >
-          Opslaan
-        </Button>
-      ]}
+      extra={<Button onClick={() => toggleOpen(!open)}>Open kaart</Button>}
+      actions={
+        open
+          ? [
+              <Tooltip
+                placement="topLeft"
+                title={goal?.info?.goal}
+                arrowPointAtCenter
+              >
+                <Button icon={<InfoCircleOutlined />}>
+                  <Link
+                    href={`/user/info/${slug}?title=${title}&user=${contextUserId}`}
+                  >
+                    Extra
+                  </Link>
+                </Button>
+              </Tooltip>,
+              <>
+                {slug !== "adl" &&
+                slug !== "cognitive" &&
+                slug !== "reanimation" &&
+                slug !== "mobility" ? (
+                  <>
+                    <Button icon={<HistoryOutlined />}>
+                      <Link
+                        href={`/user/history/${slug}?title=${title}&user=${contextUserId}`}
+                      >
+                        Geschiedenis
+                      </Link>
+                    </Button>
+                  </>
+                ) : null}
+              </>,
+              <Button
+                loading={loading}
+                type="primary"
+                disabled={goal?.goal === value}
+                onClick={addGoal}
+                icon={<SaveOutlined />}
+              >
+                Opslaan
+              </Button>
+            ]
+          : null
+      }
     >
       <GlobalStyle />
-      <>
-        {goal?.created ? (
-          <Meta
-            avatar={
-              <Avatar src={`https://randomuser.me/api/portraits/men/21.jpg`} />
-            }
-            description={`Laatst gewijzigd op ${format(
-              parseISO(goal?.created),
-              "dd-MM-yyyy"
-            )} door Hylke Vink (Fysiotherapeut)`}
-          ></Meta>
-        ) : null}
-        <Container>
-          {!loading ? (
-            <>
-              {slug === "mobility" ? (
-                <>
-                  <Mobility value={goal?.goal} setValue={setValue} />
-                </>
-              ) : slug === "adl" ? (
-                <>
-                  <ADL value={goal?.goal} setValue={setValue} />
-                </>
-              ) : slug === "reanimation" ? (
-                <>
-                  <Reanimation value={goal?.goal} setValue={setValue} />
-                </>
-              ) : slug === "transfer" ? (
-                <>
-                  <Transfer value={goal?.goal} setValue={setValue} />
-                </>
-              ) : slug === "cognitive" ? (
-                <>
-                  <Cognitive value={goal?.goal} setValue={setValue} />
-                </>
-              ) : slug === "discharge_date" ? (
-                <Date
-                  value={goal?.goal}
-                  editable={session?.dbUser?.role !== "CLIENT"}
-                  setValue={setValue}
+      {open ? (
+        <>
+          {goal?.created ? (
+            <Meta
+              avatar={
+                <Avatar
+                  src={`https://randomuser.me/api/portraits/men/21.jpg`}
                 />
-              ) : (
-                <Content>
-                  <ContentEditable
-                    disabled={session?.dbUser?.role === "CLIENT"}
-                    onChange={handleChanges}
-                    html={value}
-                  />
-                </Content>
-              )}
-            </>
+              }
+              description={`Laatst gewijzigd op ${format(
+                parseISO(goal?.created),
+                "dd-MM-yyyy"
+              )} door Hylke Vink (Fysiotherapeut)`}
+            ></Meta>
           ) : null}
-        </Container>
-      </>
+          <Container>
+            {!loading ? (
+              <>
+                {slug === "mobility" ? (
+                  <>
+                    <Mobility value={goal?.goal} setValue={setValue} />
+                  </>
+                ) : slug === "adl" ? (
+                  <>
+                    <ADL value={goal?.goal} setValue={setValue} />
+                  </>
+                ) : slug === "reanimation" ? (
+                  <>
+                    <Reanimation value={goal?.goal} setValue={setValue} />
+                  </>
+                ) : slug === "transfer" ? (
+                  <>
+                    <Transfer value={goal?.goal} setValue={setValue} />
+                  </>
+                ) : slug === "cognitive" ? (
+                  <>
+                    <Cognitive value={goal?.goal} setValue={setValue} />
+                  </>
+                ) : slug === "discharge_date" ? (
+                  <Date
+                    value={goal?.goal}
+                    editable={session?.dbUser?.role !== "CLIENT"}
+                    setValue={setValue}
+                  />
+                ) : (
+                  <Content>
+                    <ContentEditable
+                      disabled={session?.dbUser?.role === "CLIENT"}
+                      onChange={handleChanges}
+                      html={value}
+                    />
+                  </Content>
+                )}
+              </>
+            ) : null}
+          </Container>
+        </>
+      ) : null}
     </Card>
   );
 };

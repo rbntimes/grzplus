@@ -37,16 +37,19 @@ const Grid = styled.div`
 
 const Left = styled.div`
   display: grid;
+  display: flex;
+  flex-direction: column;
   grid-row-gap: 1rem;
   grid-template-columns: 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: max-content;
 `;
 
 const Right = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   grid-row-gap: 1rem;
   grid-template-columns: 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: max-content;
 `;
 
 const App = ({ router, session }) => {

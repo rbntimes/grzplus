@@ -85,11 +85,11 @@ export default ({ value, setValue }) => {
               <Mobility
                 checked={
                   mobility && mobility[type]
-                    ? mobility[type] === "yellow"
+                    ? mobility[type] === "green"
                     : false
                 }
-                onClick={() => handleMobility("yellow", type)}
-                src="/reanimation/yellow.svg"
+                onClick={() => handleMobility("green", type)}
+                src="/reanimation/green.svg"
               />
             </MobilityList>
           </>

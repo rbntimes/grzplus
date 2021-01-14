@@ -4,6 +4,7 @@ import { getSession } from "next-auth/client";
 export default async (req, res) => {
   const { key, user } = req.query;
   const { goal, user_id, changed_by } = req.body;
+  console.log(key, user, "--------");
 
   if (req.method === "POST") {
     const insert = await db.one(
@@ -14,7 +15,7 @@ export default async (req, res) => {
     res.status(201).send({ goal });
   } else {
     try {
-      const goals = await db.one(
+      const goals = await db.oneOrNone(
         `SELECT * FROM info WHERE user_id = $1 AND key = $2 ORDER BY id DESC LIMIT 1`,
         [user, key]
       );

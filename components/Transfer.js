@@ -23,6 +23,7 @@ const Label = styled.label`
   font-size: 10px;
   /* word-break: break-all; */
   width: 100%;
+  font-weight: ${({ checked }) => (checked ? "bold" : "regular")};
   color: ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
 `;
 
@@ -32,7 +33,7 @@ const MobilityList = styled.div`
 // background: ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
 const Mobility = styled.div`
   width: 80px;
-  border: 1px solid ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
+  border: 3px solid ${({ checked }) => (checked ? "#00b0f0" : "lightgrey")};
   height: 80px;
   background-image: ${({ src }) => `url(${src})`};
   background-size: 80%;
@@ -180,7 +181,7 @@ export default ({ value, setValue }) => {
                       : false
                   }
                   onClick={() => handleMobility("kortedraai", type)}
-                  src="/transfer/kortedraai.jpg"
+                  src="/transfer/kortedraai.png"
                 />
                 Korte draai
               </Label>

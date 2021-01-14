@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { withRouter } from "next/router";
-import Card from "../../../components/Card";
 import Loading from "../../../components/Loading";
 import Date from "../../../components/Date";
-import { PageHeader, Layout, Breadcrumb, List, Avatar } from "antd";
+import { PageHeader, Card, Layout, Breadcrumb, List, Avatar } from "antd";
 const { Content } = Layout;
 import { Button } from "antd";
 import {
@@ -84,13 +83,12 @@ const App = ({ router, session }) => {
   //   return null;
   // }
   const swrKey = `/api/data/info/${router.query.id}?user=${router.query.user}`;
-  const { data: goal, mutate, loading } = useSWR(swrKey, () => getData());
+  const { data: goal, mutate, loading } = useSWR(swrKey, fetcher);
   const [value, setValue] = useState(undefined);
 
   useEffect(() => {
     setValue(goal?.goal || "Nog niet ingevuld");
   }, [goal]);
-  console.log(goal, "jaja");
 
   const addGoal = async event => {
     event.preventDefault();
@@ -104,7 +102,7 @@ const App = ({ router, session }) => {
         },
         body: JSON.stringify({
           goal: value,
-          user_id: contextUserId,
+          user_id: router.query.user,
           changed_by: 3
         })
       }
@@ -117,13 +115,14 @@ const App = ({ router, session }) => {
   const handleChanges = event => {
     setValue(event.target.value);
   };
-  console.log(goal, "--------");
+  console.log(goal, "-------- aefafase");
   return (
     <Layout>
       <Content style={{ padding: "0 50px" }}>
         <Card
           title={router.query.title}
           loading={loading}
+          key={router.query.title}
           actions={[
             <Button
               loading={loading}
@@ -152,5 +151,16 @@ const App = ({ router, session }) => {
     </Layout>
   );
 };
+//
+// export async function getServerSideProps(context) {
+//   const res = await fetch(
+//     `${process.env.NEXT_PUBLIC_URL}/api/data/info/${context?.req?.id}?user=${context?.req?.user}`
+//   );
+//   const data = await res.json();
+//   console.log("data", data, "00000");
+//   return {
+//     props: {} // will be passed to the page component as props
+//   };
+// }
 
 export default withRouter(App);
