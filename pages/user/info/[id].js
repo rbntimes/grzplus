@@ -84,12 +84,13 @@ const App = ({ router, session }) => {
   //   return null;
   // }
   const swrKey = `/api/data/info/${router.query.id}?user=${router.query.user}`;
-  const { data: goal, mutate, loading } = useSWR(swrKey, fetcher);
-  const [value, setValue] = useState(goal);
+  const { data: goal, mutate, loading } = useSWR(swrKey, () => getData());
+  const [value, setValue] = useState(undefined);
 
   useEffect(() => {
     setValue(goal?.goal || "Nog niet ingevuld");
   }, [goal]);
+  console.log(goal, "jaja");
 
   const addGoal = async event => {
     event.preventDefault();

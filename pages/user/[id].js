@@ -84,6 +84,13 @@ const App = ({ router, session }) => {
             session={session}
           ></Card>
           <Card
+            title={`ADL ${data?.name}`}
+            contextUserId={router.query.id}
+            currentAudience={router.query.audience}
+            slug="adl"
+            session={session}
+          ></Card>
+          <Card
             title={`Cognitieve begeleiding ${data?.name}`}
             contextUserId={router.query.id}
             currentAudience={router.query.audience}
@@ -99,6 +106,15 @@ const App = ({ router, session }) => {
           />
         </Left>
         <Right>
+          {session?.dbUser?.role !== "CLIENT" ? (
+            <Card
+              contextUserId={router.query.id}
+              title="Reanimatiebeleid"
+              slug="reanimation"
+              currentAudience={router.query.audience}
+              session={session}
+            />
+          ) : null}
           <Card
             contextUserId={router.query.id}
             title="Voorlopige ontslagdatum"

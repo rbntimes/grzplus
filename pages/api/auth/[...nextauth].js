@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import db from "../../../db.js";
+const db = require("../../../db").instance;
 
 const options = {
   // Configure one or more authentication providers

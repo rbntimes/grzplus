@@ -41,9 +41,7 @@ const Mobility = styled.div`
 
 export default ({ value, setValue }) => {
   const types = {
-    room: "",
-    department: "",
-    outside: ""
+    room: ""
   };
   const [mobility, setMobility] = useState(value);
 
@@ -61,62 +59,37 @@ export default ({ value, setValue }) => {
   useEffect(() => {
     setMobility(value);
   }, [value]);
-
+  console.log(value, mobility);
   if (types) {
     return (
       <>
         {Object.keys(types).map(type => (
           <>
-            <h3>
-              Mobiliteit{" "}
-              {type === "room"
-                ? "op kamer"
-                : type === "department"
-                ? "op afdeling"
-                : "buiten afdeling"}
-            </h3>
             <MobilityList>
               <Mobility
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac1" : false
+                  mobility && mobility[type] ? mobility[type] === "red" : false
                 }
-                onClick={() => handleMobility("fac1", type)}
-                src="/mobility/fac1.svg"
+                onClick={() => handleMobility("red", type)}
+                src="/reanimation/red.svg"
               />
               <Mobility
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac2" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "orange"
+                    : false
                 }
-                onClick={() => handleMobility("fac2", type)}
-                src="/mobility/fac2.svg"
+                onClick={() => handleMobility("orange", type)}
+                src="/reanimation/orange.svg"
               />
               <Mobility
                 checked={
-                  mobility && mobility[type] ? mobility[type] === "fac3" : false
+                  mobility && mobility[type]
+                    ? mobility[type] === "yellow"
+                    : false
                 }
-                onClick={() => handleMobility("fac3", type)}
-                src="/mobility/fac3.svg"
-              />
-              <Mobility
-                checked={
-                  mobility && mobility[type] ? mobility[type] === "fac4" : false
-                }
-                onClick={() => handleMobility("fac4", type)}
-                src="/mobility/fac4.svg"
-              />
-              <Mobility
-                checked={
-                  mobility && mobility[type] ? mobility[type] === "fac5" : false
-                }
-                onClick={() => handleMobility("fac5", type)}
-                src="/mobility/fac5.svg"
-              />
-              <Mobility
-                checked={
-                  mobility && mobility[type] ? mobility[type] === "fac6" : false
-                }
-                onClick={() => handleMobility("fac6", type)}
-                src="/mobility/fac6.svg"
+                onClick={() => handleMobility("yellow", type)}
+                src="/reanimation/yellow.svg"
               />
             </MobilityList>
           </>

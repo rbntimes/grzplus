@@ -1,4 +1,4 @@
-import db from "../../../db.js";
+const db = require("../../../db").instance;
 import { getSession } from "next-auth/client";
 
 export default async (req, res) => {

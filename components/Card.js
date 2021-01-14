@@ -5,6 +5,8 @@ import { Skeleton, Switch, Card, Avatar, Layout, Tooltip } from "antd";
 const { Content } = Layout;
 import { Button } from "antd";
 import Mobility from "./Mobility";
+import Reanimation from "./Reanimation";
+import ADL from "./ADL";
 import Transfer from "./Transfer";
 import Cognitive from "./Cognitive";
 import Date from "./Date";
@@ -166,6 +168,14 @@ export default ({
               {slug === "mobility" ? (
                 <>
                   <Mobility value={goal?.goal} setValue={setValue} />
+                </>
+              ) : slug === "adl" ? (
+                <>
+                  <ADL value={goal?.goal} setValue={setValue} />
+                </>
+              ) : slug === "reanimation" ? (
+                <>
+                  <Reanimation value={goal?.goal} setValue={setValue} />
                 </>
               ) : slug === "transfer" ? (
                 <>
